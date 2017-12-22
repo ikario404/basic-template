@@ -1,0 +1,41 @@
+{# ``base.html`` is the template all our other templates derive from. While
+   Flask-Bootstrap ships with its own base, it is good form to create a custom
+   one for our app, as it allows customizing some aspects.
+
+   Deriving from bootstap/base.html gives us a basic page scaffoling.
+
+   https://pythonhosted.org/Flask-Bootstrap/
+   https://jinja.pocoo.org/docs/templates/#template-inheritance
+#}
+
+{%- extends "bootstrap/base.html" %}
+
+{% block title %}Basic template{% endblock %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% set title = self.title() %}
+
+{% block head %}
+	{{super()}}
+	<link rel="stylesheet" type="text/css" href="static/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="static/css/font-awesome.min.css">
+	{{fixes.ie8()}}
+{% endblock %}
+
+
+{% block content %}
+    {% block navbar %}
+	    {% include 'nav.html' %}
+	{% endblock navbar %}
+    {{super()}}
+	{% block footer %}
+	    {% include 'footer.html' %}
+	{% endblock footer %}
+{% endblock content %}
+
+
+{% block scripts %}
+    {{super()}}
+	<script type="text/javascript" src="static/js/main.js"></script>
+{% endblock %}
+
+
